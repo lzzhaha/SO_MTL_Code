@@ -1,0 +1,41 @@
+CUDA_VISIBLE_DEVICES=3 \
+DGLBACKEND=pytorch \
+python -u main.py \
+--max_num_epoch 135 \
+--mode train \
+--use_gpu \
+--cet_list_path ../../data/Stat/Clean_Data/Canonical_Edge_Types_List.json \
+--edge_indices_dir ../../data/100kdata/Edge_Indices/ \
+--node_name_list Clean_Tags Sample_Clean_Answers Sample_Clean_Questions Sample_Clean_Users \
+--textual_feature_flag_list 1 1 1 1 \
+--pre_trained_flag_list 0 1 1 1 \
+--compressed_cf_embs_dir ../../data/100kdata/Compressed_Combined_Features_Embeddings/ \
+--ntf_embs_dir ../../data/100kdata/Non_Textual_Features_Embeddings/ \
+--pre_trained_emb_dir ../../data/100kdata/Baseline_Embeddings/ \
+--task_name_list Duplicate_Question_Detection Tag_Recommendation Answer_Recommendation Answer_Score_Classification User_Reputation_Classification \
+--task_dir_list ../../data/100kdata/Duplicate_Question_Detection/ ../../data/100kdata/Tag_Recommendation/ ../../data/100kdata/Answer_Recommendation/ ../../data/100kdata/Answer_Score_Classification/ ../../data/100kdata/User_Reputation_Classification/ \
+--task_type_list link_prediction link_prediction ranking classification classification \
+--constraint_1_coefficient 1 \
+--constraint_2_coefficient 1 \
+--num_hidden_layer 0 \
+--hidden_size_list 16 \
+--constraint_1_list_path ../../data/100kdata/constraint_1_list.json \
+--constraint_2_list_path ../../data/100kdata/constraint_2_list.json \
+--checkpoint_path ../../MTL_Checkpoints/checkpoint.tar \
+--num_mlp_layers_list 1 1 \
+--batch_norm_flag_list 1 1 \
+--activation_name_list leaky_relu leaky_relu \
+--dropout_rate_list 0 0 \
+--num_class_list 4 5 \
+--train_dev_result_path ../../results/MTL/Best_Train_Dev_Results.csv \
+--test_result_path ../../results/MTL/Test_Results.csv \
+--link_prediction_pos_weight 2 \
+--epsilon_list 0 0 \
+--epsilon_trainable_list 0 0 \
+--bias_flag_list 0 0 \
+--l2_penalty_coef 1e-2 \
+--lr_reduce_step 50 \
+--tensorboard_log_dir ../../results/tensorboard_runs/Model \
+--task_coef_list 7 1 1 7 1 \
+> ../../log/MTL/Train_stdout_Log.txt \
+2> ../../log/MTL/Train_stderr_Log.txt
